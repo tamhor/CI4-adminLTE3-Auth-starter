@@ -1,53 +1,48 @@
-# CodeIgniter 4 Application Starter
+# CI4-adminLTE3-Auth-starter
 
-## What is CodeIgniter?
+Make you easier to start project.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+#### Development
 
-This repository holds a composer-installable app starter.
-It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+This project is on development, some features you can using now is listed below.
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+## What you get?
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+### Codeigniter 4 & AdminLTE 3
+- Layouting adminLTE 3 using templating engine on Codeigniter 4.
+- You get dashboard view with _partials components :
+<pre><font color="#3465A4"><b>app/Views/dashboard/</b></font>
+├── dashboard.php
+├── <font color="#3465A4"><b>_partials</b></font>
+│   ├── <font color="#3465A4"><b>breadcrumb</b></font>
+│   │   └── breadcrumb.php
+│   ├── <font color="#3465A4"><b>calendar</b></font>
+│   │   └── calendar.php
+│   ├── <font color="#3465A4"><b>chart-tabs</b></font>
+│   │   └── chart-tabs.php
+│   ├── <font color="#3465A4"><b>direct-chat</b></font>
+│   │   └── direct-chat.php
+│   ├── <font color="#3465A4"><b>graph</b></font>
+│   │   └── graph.php
+│   ├── <font color="#3465A4"><b>map-card</b></font>
+│   │   └── map-card.php
+│   ├── <font color="#3465A4"><b>small-box</b></font>
+│   │   └── small-box.php
+│   └── <font color="#3465A4"><b>todo-list</b></font>
+│       └── todo-list.php
+└── script.php
+</pre>
 
-## Installation & updates
+### Authentications
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+You can customization this Auth on `\App\Controller\TamhorAuth` and `\App\Controller\AuthController`
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+- Login
+- Register
+- RBAC
+- Email verifications
+- Recover Password
 
-## Setup
-
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
-
-## Repository Management
-
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
 
 ## Server Requirements
 
@@ -62,4 +57,44 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [mbstring](http://php.net/manual/en/mbstring.installation.php)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
 - xml (enabled by default - don't turn it off)
-# CI4-adminLTE3-Auth-starter
+
+## Installations
+
+### Creating Database
+
+First, make sure you have a database. If you dont have a database, let's creating :
+- `mysql -u root -p`
+- `Enter password: [leave blank if you never setup password]`
+- mysql> `CREATE DATABASE db_starter;`
+- mysql> `quit`
+Now, you have a database `db_starter`
+
+### Project Setup
+
+`git clone https://github.com/tamhor/CI4-adminLTE3-Auth-starter.git`\
+`cd CI4-adminLTE3-Auth-starter.git`\
+`cp env .env`\
+`code .` => open with your code editor (for example I use VSCode).
+
+Setup your `.env` file :
+
+Environment :\
+`# CI_ENVIRONMENT = production` to `CI_ENVIRONMENT = development`
+Databases initial :\
+`# database.default.hostname = localhost`\
+`# database.default.database = ci4`\
+`# database.default.username = root`\
+`# database.default.password = root`\
+`# database.default.DBDriver = MySQLi`\
+to\
+`database.default.hostname = localhost`\
+`database.default.database = db_starter`\
+`database.default.username = root`\
+`database.default.password = [leave blank if you never setup password]`\
+`database.default.DBDriver = MySQLi`
+
+- Note: Don't forget to remove the `#` tag at the first line.
+
+`php spark migrate`\
+`php spark db:seed AuthSeeder`\
+`php spark serve`
