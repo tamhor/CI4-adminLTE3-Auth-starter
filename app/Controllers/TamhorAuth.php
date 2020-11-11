@@ -16,7 +16,6 @@ use CodeIgniter\Controller;
 use App\Models\UserModel;
 use App\Models\ActivationModel;
 use App\Models\ResetpassModel;
-use CodeIgniter\I18n\Time;
 
 class TamhorAuth extends Controller
 {

@@ -77,10 +77,14 @@
   $(function() {
     toastr.options.timeOut = 0;
     toastr.options.extendedTimeOut = 0;
+    toastr.options.onclick = null;
     var error = $('.errors').html();
     if (error) {
       toastr.error(error)
       $('.errors').hide();
+      $('a.resend').click(function() {
+
+      })
     }
     var success = $('.success').html();
     if (success) {

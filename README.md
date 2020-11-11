@@ -95,6 +95,19 @@ to\
 
 - Note: Don't forget to remove the `#` tag at the first line.
 
+Setting your \App\Config\Email.php :
+
+`public $protocol = 'smtp';`\
+`public $SMTPHost = 'smtp.gmail.com';`\
+`public $SMTPUser = 'tamhor.dev@gmail.com';`\
+`public $SMTPPass = '[type your password here]';`\
+`public $SMTPPort = 465;`\
+`public $SMTPTimeout = 60;`\
+`public $SMTPCrypto = 'ssl';`\
+`public $mailType = 'html';`\
+
+- Note: Better use your secondary email address.
+
 `php spark migrate`\
 `php spark db:seed AuthSeeder`\
 `php spark serve`

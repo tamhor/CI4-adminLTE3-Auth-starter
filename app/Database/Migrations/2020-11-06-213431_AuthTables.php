@@ -30,7 +30,7 @@ class AuthTables extends Migration
 		$this->forge->addUniqueKey('username');
 		$this->forge->createTable('users', true);
 
-		/*
+		/**
 		 * Password Reset Table
 		 */
 		$this->forge->addField([
@@ -42,9 +42,9 @@ class AuthTables extends Migration
 		$this->forge->addKey('id', true);
 		$this->forge->createTable('auth_reset_password');
 
-		/*
-         * Activations Table
-         */
+		/**
+		 * Activations Table
+		 */
 		$this->forge->addField([
 			'id'         => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
 			'user_id'    => ['type' => 'int', 'constraint' => 11],
@@ -54,15 +54,27 @@ class AuthTables extends Migration
 		$this->forge->addKey('id', true);
 		$this->forge->createTable('auth_activations');
 
-		/*
-         * Roles Table
-         */
+		/**
+		 * Roles Table
+		 */
 		$this->forge->addField([
 			'id'          => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
 			'name'        => ['type' => 'varchar', 'constraint' => 255],
 		]);
 		$this->forge->addKey('id', true);
 		$this->forge->createTable('auth_roles', true);
+
+		/**
+		 * Remember me Table
+		 */
+		// $this->forge->addField([
+		// 	'id'          	=> ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
+		// 	'token'			=> ['type' => 'varchar', 'constraint' => 255],
+		// 	'user_id'		=> ['type' => 'int', 'constraint' => 11],
+		// 	'expired'		=> ['type' => 'datetime', 'null' => false],
+		// ]);
+		// $this->forge->addKey('id', true);
+		// $this->forge->createTable('auth_remember', true);
 	}
 
 	//--------------------------------------------------------------------

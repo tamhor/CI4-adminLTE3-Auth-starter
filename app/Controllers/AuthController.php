@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\I18n\Time;
+
 /**
  * ------------------------------
  * Auth Controller
@@ -123,25 +125,25 @@ class AuthController extends TamhorAuth
     {
         $input = $this->request->getVar('input');
         $password = $this->request->getVar('password');
-
         $data = $this->users->where('email', $input)->orWhere('username', $input)->first();
+
         if ($data != null) {
+            $pass = $data['password'];
+            $verify_pass = password_verify($password, $pass);
 
-            if ($data['is_active'] == 0) {
-                $this->session->setFlashdata(
-                    'msg',
-                    $this->errors(
-                        "Your account not verified.",
-                        "Check your email to activate your account."
-                    )
-                );
-                return redirect()->to('/login');
-            } else {
-
-                $pass = $data['password'];
-                $verify_pass = password_verify($password, $pass);
-
-                if ($verify_pass) {
+            if ($verify_pass) {
+                if ($data['is_active'] == 0) {
+                    $message = "Please activate the account " . anchor('activate/' . $data['activate_token'], 'Activate Now', '');
+                    $this->session->setFlashdata(
+                        'msg',
+                        $this->errors(
+                            "Your account not verified.<br/>Check your email to activate your account.",
+                            "Your activation link is automatically resend to your email"
+                        )
+                    );
+                    $this->sendEmail($data['email'], 'Activate the account', $message);
+                    return redirect()->to('/login');
+                } else {
                     $sess_data = [
                         'id'       => $data['id'],
                         'email'     => $data['email'],
@@ -150,18 +152,17 @@ class AuthController extends TamhorAuth
                     ];
                     $this->session->set($sess_data);
                     return redirect()->to('/');
-                } else {
-                    $this->session->setFlashdata(
-                        'msg',
-                        $this->errors(
-                            'Wrong Password'
-                        )
-                    );
-                    return redirect()->to('/login');
                 }
+            } else {
+                $this->session->setFlashdata(
+                    'msg',
+                    $this->errors(
+                        'Wrong Password'
+                    )
+                );
+                return redirect()->to('/login');
             }
         } else {
-
             $this->session->setFlashdata(
                 'msg',
                 $this->errors(

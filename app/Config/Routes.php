@@ -33,7 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/activate/(:segment)', 'AuthController::activate/$1');
 $routes->get('/recover-password/(:segment)', 'AuthController::recover_view/$1');
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index', ['filter' => 'auth']);
 $routes->get('/login', function () {
 	return view('auth/login');
 });
